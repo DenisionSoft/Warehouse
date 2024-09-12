@@ -13,6 +13,9 @@ public class RandomDataGeneratorTests
         _randomDataGenerator = new RandomDataGenerator();
     }
     
+    /// <summary>
+    /// Тест проверяет, что метод GeneratePallets не нарушает ограничения по размеру коробок, расположенных на паллете.
+    /// </summary>
     [Fact]
     public void GenerateBoxes_Should_Respect_Pallet_Size()
     {

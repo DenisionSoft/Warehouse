@@ -4,6 +4,12 @@ public class Pallet : Item
 {
     public List<Box> Boxes { get; set; } = new();
 
+    /// <summary>
+    /// Конструктор <c>Pallet</c> с параметрами ширины, высоты и глубины паллеты. Базовый вес паллеты - 30 кг.
+    /// </summary>
+    /// <param name="width">Ширина паллеты.</param>
+    /// <param name="height">Высота паллеты.</param>
+    /// <param name="length">Глубина паллеты.</param>
     public Pallet(double width, double height, double length)
     {
         Width = width;
@@ -12,8 +18,17 @@ public class Pallet : Item
         Weight = 30;
     }
     
+    /// <summary>
+    /// Метод <c>GetVolume</c> для паллеты, считающий объём паллеты с учётом объёма коробок
+    /// </summary>
+    /// <returns>
+    /// double - объём паллеты с учётом объёма коробок
+    /// </returns>
     public override double GetVolume() => Math.Round(base.GetVolume() + Boxes.Sum(box => box.GetVolume()), 2);
     
+    /// <summary>
+    /// Метод <c>PrintBoxes</c> печатает каждую коробку на паллете
+    /// </summary>
     public void PrintBoxes()
     {
         if (Boxes.Count == 0)

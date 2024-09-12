@@ -18,11 +18,24 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="bin\Release\net8.0\" />
       <Folder Include="Migrations\" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="bin\Release\net8.0\Warehouse.exe" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="bin\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="bin\**" />
     </ItemGroup>
 
 </Project>

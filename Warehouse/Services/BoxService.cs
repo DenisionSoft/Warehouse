@@ -15,6 +15,12 @@ public class BoxService
         _palletsRepository = palletsRepository;
     }
     
+    /// <summary>
+    /// Метод <c>AddAsync</c> добавляет коробку в базу данных. Он проверяет, существует ли паллета с указанным идентификатором и соответствует ли размер коробки размерам паллеты.
+    /// </summary>
+    /// <param name="boxDto">DTO коробки, которую нужно добавить в базу данных.</param>
+    /// <exception cref="ArgumentException">Паллеты с указанным идентификатором не существует.</exception>
+    /// <exception cref="ArgumentException">Коробка слишком велика для этой паллеты.</exception>
     public async Task AddAsync(NewBoxDto boxDto)
     {
         var (width, height, length, weight, givenDate, isExpirationDate, palletId) = boxDto;
@@ -51,6 +57,11 @@ public class BoxService
             });
     }
     
+    /// <summary>
+    /// Метод <c>GetAllByPalletId</c> возвращает все коробки, которые находятся на паллете с заданным идентификатором.
+    /// </summary>
+    /// <param name="palletId">Идентификатор паллеты, на которой находятся коробки.</param>
+    /// <returns>Список коробок, которые находятся на паллете с заданным идентификатором.</returns>
     public async Task<List<Box>> GetAllByPalletId(long palletId)
     {
         return await _boxesRepository.GetAllByPalletId(palletId);

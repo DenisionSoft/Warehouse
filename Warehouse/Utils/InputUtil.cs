@@ -11,7 +11,11 @@ public class InputUtil
     {
         Console.OutputEncoding = Encoding.UTF8;
     }
-
+    
+    /// <summary>
+    /// Метод <c>GetMenuOption</c> отвечает за отображение меню и ввод пользовательского выбора.
+    /// </summary>
+    /// <returns>Возвращает выбранный пользователем пункт меню.</returns>
     public int GetMenuOption()
     {
         while (true)
@@ -41,6 +45,10 @@ public class InputUtil
         }
     }
     
+    /// <summary>
+    /// Метод <c>CreatePalletInput</c> отвечает за ввод данных для создания паллеты.
+    /// </summary>
+    /// <returns>Возвращает объект NewPalletDto с введенными данными.</returns>
     public NewPalletDto CreatePalletInput()
     {
         Console.Clear();
@@ -49,6 +57,11 @@ public class InputUtil
         return new NewPalletDto(width, height, length);
     }
 
+    /// <summary>
+    /// Метод <c>CreateBoxInput</c> отвечает за ввод данных для создания коробки.
+    /// </summary>
+    /// <returns>Возвращает объект NewBoxDto с введенными данными.</returns>
+    /// <exception cref="ArgumentException">Возникает при неверном формате ввода.</exception>
     public NewBoxDto CreateBoxInput()
     {
         Console.Clear();
@@ -93,6 +106,11 @@ public class InputUtil
         return new NewBoxDto(width, height, length, weight, givenDate, isExpirationDate, palletId);
     }
 
+    /// <summary>
+    /// Метод <c>GenerateDataInput</c> отвечает за ввод количества паллет для генерации.
+    /// </summary>
+    /// <returns>Возвращает количество паллет для генерации.</returns>
+    /// <exception cref="ArgumentException">Возникает при неверно введённых данных.</exception>
     public int GenerateDataInput()
     {
         Console.Clear();

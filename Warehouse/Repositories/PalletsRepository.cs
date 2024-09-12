@@ -12,28 +12,49 @@ public class PalletsRepository
         _context = context;
     }
 
+    /// <summary>
+    /// Метод <c>AddAsync</c> добавляет паллету в базу данных.
+    /// </summary>
+    /// <param name="pallet">Паллета, которую нужно добавить в базу данных.</param>
     public virtual async Task AddAsync(Pallet pallet)
     {
         await _context.Pallets.AddAsync(pallet);
         await _context.SaveChangesAsync();
     }
     
+    /// <summary>
+    /// Метод <c>AddRangeAsync</c> добавляет паллеты из списка в базу данных.
+    /// </summary>
+    /// <param name="pallets">Список паллет, которые нужно добавить в базу данных.</param>
     public virtual async Task AddRangeAsync(List<Pallet> pallets)
     {
         await _context.Pallets.AddRangeAsync(pallets);
         await _context.SaveChangesAsync();
     }
     
+    /// <summary>
+    /// Метод <c>GetById</c> возвращает паллету по её идентификатору.
+    /// </summary>
+    /// <param name="id">Идентификатор паллеты.</param>
+    /// <returns>Паллета с заданным идентификатором.</returns>
     public virtual async Task<Pallet?> GetById(long id)
     {
         return await _context.Pallets.FindAsync(id);
     }
     
+    /// <summary>
+    /// Метод <c>GetAll</c> возвращает все паллеты из базы данных.
+    /// </summary>
+    /// <returns>Список всех паллет из базы данных.</returns>
     public async Task<List<Pallet>> GetAll()
     {
         return await _context.Pallets.ToListAsync();
     }
 
+    /// <summary>
+    /// Метод <c>GetAllGroupedByExpirationDateSortedByWeight</c> возвращает все паллеты, у которых есть коробки, сгруппированные по дате истечения срока годности и отсортированные по весу.
+    /// </summary>
+    /// <returns>Список всех паллет, у которых есть коробки, сгруппированных по дате истечения срока годности и отсортированных по весу.</returns>
     public virtual async Task<List<Pallet>> GetAllGroupedByExpirationDateSortedByWeight()
     {
         return await _context.Pallets
@@ -44,6 +65,10 @@ public class PalletsRepository
             .ToListAsync();
     }
     
+    /// <summary>
+    /// Метод <c>GetThreeWithLatestExpiryBoxesOrderByVolume</c> возвращает три паллеты с коробками, у которых самая поздняя дата истечения срока годности, отсортированные по объему.
+    /// </summary>
+    /// <returns>Список из трёх паллет с коробками, у которых самая поздняя дата истечения срока годности, отсортированных по объему.</returns>
     public async Task<List<Pallet>> GetThreeWithLatestExpiryBoxesOrderByVolume()
     {
         var pallets = await _context.Pallets

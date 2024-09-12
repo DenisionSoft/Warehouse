@@ -11,6 +11,11 @@ public class RandomDataGenerator
         _random = new Random();
     }
 
+    /// <summary>
+    /// Метод <c>GeneratePallets</c> генерирует случайные паллеты с коробками.
+    /// </summary>
+    /// <param name="count">Количество паллет для генерации.</param>
+    /// <returns>Возвращает список сгенерированных паллет.</returns>
     public List<Pallet> GeneratePallets(int count)
     {
         var pallets = new List<Pallet>();

@@ -25,6 +25,9 @@ public class BoxServiceTests
         _boxService = new BoxService(_mockBoxesRepo.Object, _mockPalletsRepo.Object);
     }
     
+    /// <summary>
+    /// Тест проверяет, что метод AddAsync добавляет коробку.
+    /// </summary>
     [Fact]
     public async Task AddAsync_Should_Add_Box()
     {
@@ -39,6 +42,9 @@ public class BoxServiceTests
         _mockBoxesRepo.Verify(r => r.AddAsync(It.IsAny<Box>()), Times.Once);
     }
     
+    /// <summary>
+    /// Тест проверяет, что метод AddAsync выбрасывает исключение, если паллета не существует.
+    /// </summary>
     [Fact]
     public async Task AddAsync_Should_Reject_When_Pallet_Not_Exists()
     {
@@ -53,6 +59,9 @@ public class BoxServiceTests
         await act.Should().ThrowAsync<ArgumentException>();
     }
 
+    /// <summary>
+    /// Тест проверяет, что метод AddAsync выбрасывает исключение, если коробка не помещается на паллету.
+    /// </summary>
     [Fact]
     public async Task AddAsync_Should_Reject_When_Box_Too_Big()
     {

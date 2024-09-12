@@ -23,6 +23,9 @@ public class PalletServiceTests
         _palletService = new PalletService(_mockRepo.Object);
     }
     
+    /// <summary>
+    /// Тест проверяет, что метод AddAsync добавляет паллету.
+    /// </summary>
     [Fact]
     public async Task AddAsync_Should_Add_Pallet()
     {
@@ -36,6 +39,9 @@ public class PalletServiceTests
         _mockRepo.Verify(r => r.AddAsync(It.IsAny<Pallet>()), Times.Once);
     }
 
+    /// <summary>
+    /// Тест проверяет, что метод AddRangeAsync добавляет диапазон паллет.
+    /// </summary>
     [Fact]
     public async Task AddRangeAsync_Should_Add_Range_Of_Pallets()
     {
