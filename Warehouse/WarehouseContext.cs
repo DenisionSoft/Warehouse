@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Warehouse.Configurations;
 using Warehouse.Models;
 
 namespace Warehouse;
@@ -23,23 +24,9 @@ public class WarehouseContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Pallet>()
-            .HasKey(p => p.Id);
-        
-        modelBuilder.Entity<Pallet>()
-            .HasMany(p => p.Boxes)
-            .WithOne(b => b.Pallet)
-            .HasForeignKey(b => b.PalletId);
-        
-        modelBuilder.Entity<Box>()
-            .HasKey(b => b.Id);
-
-        modelBuilder.Entity<Box>()
-            .HasOne(b => b.Pallet)
-            .WithMany(p => p.Boxes)
-            .HasForeignKey(b => b.PalletId)
-            .IsRequired();
-        
+        new PalletEntityTypeConfiguration().Configure(modelBuilder.Entity<Pallet>());
+        new BoxEntityTypeConfiguration().Configure(modelBuilder.Entity<Box>());
+ 
         base.OnModelCreating(modelBuilder);
     }
 
