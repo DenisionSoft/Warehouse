@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse", "Warehouse\Warehouse.csproj", "{368F0243-6C41-4AB8-B651-8C4FE7DA209F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseTests", "WarehouseTests\WarehouseTests.csproj", "{894D249A-25CD-4495-AF5D-66C288F27AE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{368F0243-6C41-4AB8-B651-8C4FE7DA209F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368F0243-6C41-4AB8-B651-8C4FE7DA209F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368F0243-6C41-4AB8-B651-8C4FE7DA209F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368F0243-6C41-4AB8-B651-8C4FE7DA209F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894D249A-25CD-4495-AF5D-66C288F27AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894D249A-25CD-4495-AF5D-66C288F27AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894D249A-25CD-4495-AF5D-66C288F27AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894D249A-25CD-4495-AF5D-66C288F27AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
