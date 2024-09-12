@@ -6,7 +6,7 @@ public class Box : Item
     public DateOnly ExpirationDate { get; set; }
     
     public long PalletId { get; set; }
-    public Pallet Pallet { get; set; }
+    public Pallet? Pallet { get; set; }
     
     public override string ToString()
     {
