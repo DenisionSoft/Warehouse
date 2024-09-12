@@ -56,7 +56,7 @@ public class InputUtil
         var (width, height, length) = GetCommonValues();
         
         Console.Write("Вес: ");
-        double weight = double.TryParse(Console.ReadLine(), out var tmp) ? tmp : 0;
+        double.TryParse(Console.ReadLine(), out double weight);
         if (weight <= 0)
         {
             throw new ArgumentException("неверный формат ввода.");
@@ -88,7 +88,7 @@ public class InputUtil
         }
         
         Console.Write("Введите идентификатор паллеты для новой коробки: ");
-        long palletId = long.TryParse(Console.ReadLine(), out var id) ? id : 0;
+        long.TryParse(Console.ReadLine(), out long palletId);
         
         return new NewBoxDto(width, height, length, weight, givenDate, isExpirationDate, palletId);
     }
@@ -97,7 +97,7 @@ public class InputUtil
     {
         Console.Clear();
         Console.Write("Введите количество паллет для генерации: ");
-        int palletsCount = int.TryParse(Console.ReadLine(), out var count) ? count : 0;
+        int.TryParse(Console.ReadLine(), out var palletsCount);
         if (palletsCount <= 0)
         {
             throw new ArgumentException("неверные данные.");
@@ -108,14 +108,12 @@ public class InputUtil
 
     private (double, double, double) GetCommonValues()
     {
-        double tmp;
-        
         Console.Write("Ширина: ");
-        double width = double.TryParse(Console.ReadLine(), out tmp) ? tmp : 0;
+        double.TryParse(Console.ReadLine(), out double width);
         Console.Write("Высота: ");
-        double height = double.TryParse(Console.ReadLine(), out tmp) ? tmp : 0;
+        double.TryParse(Console.ReadLine(), out double height);
         Console.Write("Глубина: ");
-        double length = double.TryParse(Console.ReadLine(), out tmp) ? tmp : 0;
+        double.TryParse(Console.ReadLine(), out double length);
         
         if (width <= 0 || height <= 0 || length <= 0)
         {
