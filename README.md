@@ -1,41 +1,95 @@
-## Решение тестового задания
+# Warehouse Web API & Console App
 
-Состоит из двух проектов - Warehouse и WarehouseTests.
+Приложение управления складом. Представляет собой Web API с клиентами для взаимодействия и хранилище данных.
 
-Использованные зависимости:
+Ключевые проекты в решении:
+* `Web` - Web API
+* `ConsoleApplication` - интерактивное консольное приложение для взаимодействия с API
+* `WarehouseTests` - тесты
+
+## Описание API
+
+Приложение предоставляет доступ к ручкам для выполнения операций над сущностями.
+Спецификация OpenAPI доступна в автогенерируемом файле [swagger.json](src/Web.GeneratedClient/swagger.json). Он создаётся при
+каждом запуске Web API с использованием локального инструмента `Swashbuckle.AspNetCore.Cli`.
+
+### Pallet
+* `GET /api/v1/pallets` - получение всех паллет
+* `GET /api/v1/pallets/{palletId}` - получение паллеты
+* `POST /api/v1/pallets` - добавление паллеты
+* `PATCH /api/v1/pallets/{palletId}` - изменение паллеты
+* `DELETE /api/v1/pallets/{palletId}` - удаление паллеты
+
+### Box
+* `GET /api/v1/boxes` - получение всех коробок
+* `GET /api/v1/boxes/{boxId}` - получение коробки
+* `GET /api/v1/pallets/{palletId}/boxes` - получение всех коробок на паллете
+* `POST /api/v1/pallets/{palletId}/boxes` - добавление коробки на паллету
+* `PATCH /api/v1/pallets/{palletId}/boxes/{boxId}` - изменение коробки
+* `DELETE /api/v1/boxes/{boxId}` - удаление коробки
+
+## Установка и запуск
+
+Необходимые зависимости:
+* [.NET 8.0](https://dotnet.microsoft.com/download/dotnet/8.0)
+* [EF Core CLI](https://docs.microsoft.com/en-us/ef/core/cli/dotnet) (для работы с миграциями)
+* [Docker](https://www.docker.com/products/docker-desktop) (для запуска тестов или базы данных)
+
+### Web API
+
+Убедитесь, что выбран нужный поставщик данных в [appsettings.json](src/Web/appsettings.json). Приложение поддерживает SQLite и PostgreSQL.
+
+При выборе PostgreSQL, убедитесь, что база данных запущена и доступна. Вы можете воспользоваться готовым docker-compose,
+который создаст и запустит контейнер с PostgreSQL. Для этого, запустите Docker и из `\docker` выполните:
+
+```shell
+docker-compose up --build
 ```
-Проект "Warehouse" содержит следующие ссылки на пакеты
-   [net8.0]:
-   Пакет верхнего уровня                        Запрошено   Разрешено
-   > Microsoft.EntityFrameworkCore              8.0.4       8.0.4
-   > Microsoft.EntityFrameworkCore.Design       8.0.4       8.0.4
-   > Npgsql.EntityFrameworkCore.PostgreSQL      8.0.4       8.0.4
 
-Проект "WarehouseTests" содержит следующие ссылки на пакеты
-   [net8.0]:
-   Пакет верхнего уровня            Запрошено   Разрешено
-   > coverlet.collector             6.0.0       6.0.0
-   > FluentAssertions               6.12.1      6.12.1
-   > Microsoft.NET.Test.Sdk         17.8.0      17.8.0
-   > Moq                            4.20.72     4.20.72
-   > xunit                          2.5.3       2.5.3
-   > xunit.runner.visualstudio      2.5.3       2.5.3
+Для подключения к этой БД восползьуйтесь следующей строкой подключения в [appsettings.json](src/Web/appsettings.json):
+
+`Host=localhost;Port=5432;Database=warehouse;Username=warehouse;Password=password`
+
+Из корневой директории проекта:
+
+```shell
+dotnet run --project .\src\Web
 ```
 
-## Предложенные способы запуска
-### Настройка базы данных
-Вариант 1. Вызов `dotnet ef database update` из `\Warehouse` - создаст схему из миграции
+### Консольное приложение
 
-Вариант 2. Вызов `docker-compose up --build` из `\docker` - запустит последний Postgres и создаст схему из migration.sql (полученный из схемы путём `dotnet ef migrations script -o migration.sql`)
+Убедитесь, что Web API запущено и доступно по адресу, указанному в [appsettings.json](src/ConsoleApplication/appsettings.json).
 
-Вариант 3. Вызов `.\efbundle.exe` из `\Warehouse` - создаст схему из миграции
+Из корневой директории проекта:
 
-### Запуск приложения
+```shell
+dotnet run --project .\src\ConsoleApplication
+```
 
-Вариант 1. Вызов `dotnet run --project Warehouse` из корня - соберёт и запустит приложение
+### Тестирование
 
-Вариант 2. Вызов `.\Warehouse.exe` из корня - запустит созданный исполняемый файл
+Убедитесь, что Docker запущен. Тесты используют TestContainers.
 
-## Тесты
+Из корневой директории проекта:
 
-Для запуска тестов - `dotnet test WarehouseTests`
+```shell
+dotnet test
+```
+
+## Миграции
+
+Для создания новой миграции, выберите имя миграции и её расположение. Для миграций к SQLite используйте проект `Data.Migrations.SQLite`, для PostgreSQL - `Data.Migrations.Psql`.
+
+Убедитесь, что установлены желаемые значения в [appsettings.json](src/Web/appsettings.json), и что база данных (в случае PostgreSQL) запущена и доступна.
+
+Из корневой директории проекта выполните команду, заменив `<MigrationName>` и `<MigrationProject>` на соответствующие значения:
+
+```shell
+dotnet ef migrations add <MigrationName> --project <MigrationProject> --startup-project src/Web --context WarehouseDbContext
+```
+
+Миграция применится автоматически при запуске Web API. Для применения миграции вручную, выполните:
+
+```shell
+dotnet ef database update --project <MigrationProject> --startup-project src/Web --context WarehouseDbContext
+```

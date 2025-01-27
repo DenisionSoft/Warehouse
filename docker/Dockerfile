@@ -1,5 +1,3 @@
-FROM postgres:latest
-
-COPY migration.sql /docker-entrypoint-initdb.d/
+FROM postgres:17-alpine
 
 EXPOSE 5432
